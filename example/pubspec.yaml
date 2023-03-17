@@ -16,7 +16,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  uni_links: ^0.5.1
   moongate_flutter_sdk:
     # When depending on this package from a real application you should use:
     #   moongate_flutter_sdk: ^x.y.z

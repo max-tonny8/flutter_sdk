@@ -4,84 +4,82 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:moongate_flutter_sdk/moongate_flutter_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:moongate_flutter_sdk/my_auth_plugin.dart';
+import 'package:uni_links/uni_links.dart';
 
 void main() {
-  runApp(const MyApp());
-  runApp(TestApp());
+  runApp(MyApp());
 }
 
-class TestApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter WebView Demo',
-      debugShowCheckedModeBanner: false,
+      title: 'My Auth Plugin Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
-        "/": (_) => new WebviewScaffold(
-              url:
-                  "http://13.40.184.28:3000/provider?provider=google&redirecturl=com.onemoongate.moongate_flutter_sdk_example",
-              userAgent: 'random',
-              appBar: new AppBar(
-                title: new Text("Widget webview"),
-              ),
-            ),
-      },
+      home: MyHomePage(title: 'My Auth Plugin Example App'),
     );
   }
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _moongateFlutterSdkPlugin = MoongateFlutterSdk();
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
+class _MyHomePageState extends State<MyHomePage> {
+  MyAuthPlugin myAuthPlugin = MyAuthPlugin();
+  void handleIncomingLinks() async {
     try {
-      platformVersion = await _moongateFlutterSdkPlugin.getPlatformVersion() ??
-          'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      Uri? initialLink = await getInitialUri();
+      print('Initial link: $initialLink');
+      if (initialLink != null &&
+          initialLink.toString().startsWith('moongate://')) {
+        String accessToken = initialLink.queryParameters['access_token'] ?? '';
+        // Perform any necessary actions with the access token
+      }
+
+      // Handle deep links while the app is running
+      uriLinkStream.listen((Uri? incomingLink) {
+        print('Incoming link: $incomingLink');
+        if (incomingLink != null &&
+            incomingLink.toString().startsWith('moongate://')) {
+          String accessToken =
+              incomingLink.queryParameters['access_token'] ?? '';
+          // Perform any necessary actions with the access token
+        }
+      }, onError: (err) {
+        // Handle any errors
+      });
+    } catch (e) {
+      // Handle any errors
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                myAuthPlugin.signInWithProvider(
+                    context, 'discord', 'moongate://', 'ethereum');
+              },
+              child: Text('Sign in with Google'),
+            ),
+          ],
         ),
       ),
     );
