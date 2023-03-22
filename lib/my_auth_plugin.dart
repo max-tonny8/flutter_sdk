@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:flutter/material.dart';
 import 'auth_webview.dart';
+import 'secure_storage_util.dart';
 
 class MyAuthPlugin {
   static const MethodChannel _channel = const MethodChannel('my_auth_plugin');
@@ -21,16 +22,20 @@ class MyAuthPlugin {
     // Redirect the user to the external OAuth provider for authentication
     // After successful authentication, obtain the JWT and store it securely
     String authUrl =
-        'http://13.40.184.28:3000/provider?provider=$provider&redirectUrl=$redirectUrl&blockchain=$blockchain';
+        'http://13.40.184.28:3000/provider?provider=$provider&redirecturl=$redirectUrl&blockchain=$blockchain';
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => AuthWebView(
           url: authUrl,
-          onAuthenticated: (jwt) async {
-            // Store the JWT securely, e.g., in FlutterSecureStorage
-            // and perform any other necessary steps
+          onAuthenticated: (accessToken) async {
+            // Store the access token securely
+            final secureStorage = SecureStorageUtil();
+            await secureStorage.setAccessToken(accessToken);
+            // Perform any other necessary steps
+
+            print('we have securedz ze access token $accessToken');
           },
         ),
       ),

@@ -35,33 +35,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   MyAuthPlugin myAuthPlugin = MyAuthPlugin();
-  void handleIncomingLinks() async {
-    try {
-      Uri? initialLink = await getInitialUri();
-      print('Initial link: $initialLink');
-      if (initialLink != null &&
-          initialLink.toString().startsWith('moongate://')) {
-        String accessToken = initialLink.queryParameters['access_token'] ?? '';
-        // Perform any necessary actions with the access token
-      }
-
-      // Handle deep links while the app is running
-      uriLinkStream.listen((Uri? incomingLink) {
-        print('Incoming link: $incomingLink');
-        if (incomingLink != null &&
-            incomingLink.toString().startsWith('moongate://')) {
-          String accessToken =
-              incomingLink.queryParameters['access_token'] ?? '';
-          // Perform any necessary actions with the access token
-        }
-      }, onError: (err) {
-        // Handle any errors
-      });
-    } catch (e) {
-      // Handle any errors
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () {
                 myAuthPlugin.signInWithProvider(
-                    context, 'discord', 'moongate://', 'ethereum');
+                    context, 'google', 'moongate://', 'ethereum');
               },
               child: Text('Sign in with Google'),
             ),
