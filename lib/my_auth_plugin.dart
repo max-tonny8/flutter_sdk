@@ -8,6 +8,8 @@ import 'package:jwt_decode/jwt_decode.dart';
 import 'package:flutter/material.dart';
 import 'auth_webview.dart';
 import 'secure_storage_util.dart';
+import 'get_initial_key_share.dart';
+import 'get_moongate_keyshare.dart';
 
 class MyAuthPlugin {
   static const MethodChannel _channel = const MethodChannel('my_auth_plugin');
@@ -34,8 +36,8 @@ class MyAuthPlugin {
             final secureStorage = SecureStorageUtil();
             await secureStorage.setAccessToken(accessToken);
             // Perform any other necessary steps
-
-            print('we have securedz ze access token $accessToken');
+            fetchInitialKeyShare();
+            getMoongateKeyShare();
           },
         ),
       ),

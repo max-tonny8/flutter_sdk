@@ -19,6 +19,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   crypto: ^3.0.1
   jwt_decode: ^0.3.1
+  ntcdcrypto: ^0.2.0
 
 dev_dependencies:
   flutter_test:
