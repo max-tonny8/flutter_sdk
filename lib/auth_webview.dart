@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'secure_storage_util.dart';
 
 class AuthWebView extends StatefulWidget {
   final String url;
@@ -14,6 +13,7 @@ class AuthWebView extends StatefulWidget {
 
 class _AuthWebViewState extends State<AuthWebView> {
   late InAppWebViewController _webViewController;
+  bool _authenticationProcessed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,12 @@ class _AuthWebViewState extends State<AuthWebView> {
         },
         onLoadStop: (controller, url) {
           print('onLoadStop: $url');
-          if (url.toString().startsWith('moongate://')) {
+          if (!_authenticationProcessed &&
+              url.toString().startsWith('moongate://')) {
+            _authenticationProcessed = true;
             String accessToken =
                 Uri.parse(url.toString()).queryParameters['access_token']!;
             widget.onAuthenticated(accessToken);
-            print('access token for moongate: $accessToken');
             _webViewController.clearCache();
             _webViewController.stopLoading();
           }

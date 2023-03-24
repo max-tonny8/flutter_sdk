@@ -152,6 +152,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
+  hex:
+    dependency: transitive
+    description:
+      name: hex
+      sha256: "4e7cd54e4b59ba026432a6be2dd9d96e4c5205725194997193bf871703b82c4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   http:
     dependency: transitive
     description:
@@ -223,6 +231,14 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  ntcdcrypto:
+    dependency: transitive
+    description:
+      name: ntcdcrypto
+      sha256: c89e721bba962599783bb42fe8db64f876d079a747856823872883c42bcfca99
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   path:
     dependency: transitive
     description:
