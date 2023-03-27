@@ -1,15 +1,10 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:crypto/crypto.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 import 'package:flutter/material.dart';
 import 'auth_webview.dart';
 import 'secure_storage_util.dart';
-import 'get_initial_key_share.dart';
-import 'get_moongate_keyshare.dart';
+import 'authentication_wrapper.dart';
 
 class MyAuthPlugin {
   static const MethodChannel _channel = const MethodChannel('my_auth_plugin');
@@ -35,9 +30,7 @@ class MyAuthPlugin {
             // Store the access token securely
             final secureStorage = SecureStorageUtil();
             await secureStorage.setAccessToken(accessToken);
-            // Perform any other necessary steps
-            fetchInitialKeyShare();
-            getMoongateKeyShare();
+            await authenticationHandler();
           },
         ),
       ),
