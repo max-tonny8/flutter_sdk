@@ -21,6 +21,8 @@ dependencies:
   jwt_decode: ^0.3.1
   ntcdcrypto: ^0.2.0
   convert: ^3.1.1
+  sss256: ^1.0.0
+  hex: ^0.2.0
 
 dev_dependencies:
   flutter_test:
