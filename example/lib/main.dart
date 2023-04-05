@@ -4,8 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:moongate_flutter_sdk/moongate_flutter_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:moongate_flutter_sdk/my_auth_plugin.dart';
-import 'package:uni_links/uni_links.dart';
+import 'package:moongate_flutter_sdk/moongate_auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,9 +33,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MyAuthPlugin myAuthPlugin = MyAuthPlugin();
+  // Get the mnemonic once the user has authenticated from moongateAuth.getMnemonic()
+  MoonGateAuth moonGateAuth = MoonGateAuth();
   @override
+  String? mnemonic = '';
   Widget build(BuildContext context) {
+    // Create a function that sign ins with provider and then get the mnemonic once the user has authenticated
+    Future<void> signInWithProvider(
+        String provider, String redirectUrl, String chain) async {
+      await moonGateAuth.signInWithProvider(
+          context, provider, redirectUrl, chain);
+      mnemonic = await moonGateAuth.getMnemonic();
+      print(mnemonic);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -46,12 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
-                myAuthPlugin.signInWithProvider(
-                    context, 'google', 'moongate://', 'ethereum');
-              },
-              child: Text('Sign in with Google'),
-            ),
+                onPressed: () {
+                  signInWithProvider('google', 'moongate://', 'ethereum');
+                },
+                child: Text('Google')),
           ],
         ),
       ),

@@ -7,7 +7,7 @@ Future checkForExistingKeys() async {
   String? accessToken = await secureStorage.getAccessToken();
   if (accessToken != null) {
     final response =
-        await http.post(Uri.parse('http://192.168.0.25:3005/checkforkeyshare'),
+        await http.post(Uri.parse('http://192.168.0.18:3005/checkforkeyshare'),
             headers: {
               'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
               'Content-Type': 'application/json',

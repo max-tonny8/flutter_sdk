@@ -7,7 +7,7 @@ Future<void> createKeys() async {
   String? accessToken = await secureStorage.getAccessToken();
   if (accessToken != null) {
     final response =
-        await http.post(Uri.parse('http://192.168.0.25:3004/keygen'),
+        await http.post(Uri.parse('http://192.168.0.18:3004/keygen'),
             headers: {
               'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
               'Content-Type': 'application/json',

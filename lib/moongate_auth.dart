@@ -6,8 +6,8 @@ import 'auth_webview.dart';
 import 'secure_storage_util.dart';
 import 'authentication_wrapper.dart';
 
-class MyAuthPlugin {
-  static const MethodChannel _channel = const MethodChannel('my_auth_plugin');
+class MoonGateAuth {
+  static const MethodChannel _channel = const MethodChannel('moongate_auth');
 
   // Add any necessary variables here, such as API keys or URLs.
   final String _authBaseUrl = 'https://auth.moongate.one/provider';
@@ -37,28 +37,14 @@ class MyAuthPlugin {
     );
   }
 
-  /* Future<String> getKeyShare() async {
-    // Implement the API call to get the key share from your backend
-    // Return the key share
+  // expose methods for getting private key and mnemonic
+  Future<String?> getPrivateKey() async {
+    final secureStorage = SecureStorageUtil();
+    return await secureStorage.getPrivateKey();
   }
 
-  Future<void> createKey() async {
-    // Implement the API call to create a private key from the keygen endpoint
-    // Store the private key securely in the application's local storage
+  Future<String?> getMnemonic() async {
+    final secureStorage = SecureStorageUtil();
+    return await secureStorage.getMnemonic();
   }
-
-  Future<String> reconstructPrivateKey() async {
-    // Retrieve the key share from your backend using getKeyShare()
-    // Retrieve the local key share from secure storage
-    // Reconstruct the private key using a reputable open-source Shamir Secret Sharing library
-    // Return the reconstructed private key
-  }
-
-  Future<void> storePrivateKey(String privateKey) async {
-    // Implement secure storage of the private key using FlutterSecureStorage
-  }
-
-  Future<void> signOut() async {
-    // Clear the local storage and log the user out
-  } */
 }
