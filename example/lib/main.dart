@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  signInWithProvider('ethereum', 'moongate://', 'tezos');
+                  signInWithProvider('google', 'moongate://', 'tezos');
                 },
                 child: Text('Log In with Provider')),
           ],

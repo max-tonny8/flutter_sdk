@@ -19,7 +19,7 @@ class MoonGateAuth {
     // Redirect the user to the external OAuth provider for authentication
     // After successful authentication, obtain the JWT and store it securely
     String authUrl =
-        'http://13.40.184.28:3000/provider?provider=$provider&redirecturl=$redirectUrl&blockchain=$blockchain';
+        'https://auth-bice-mu.vercel.app/provider?provider=$provider&redirecturl=$redirectUrl&blockchain=$blockchain';
 
     Navigator.push(
       context,
