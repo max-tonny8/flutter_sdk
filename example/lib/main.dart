@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:moongate_flutter_sdk/moongate_flutter_sdk.dart';
-import 'package:flutter/material.dart';
 import 'package:moongate_flutter_sdk/moongate_auth.dart';
 
 void main() {
@@ -57,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  signInWithProvider('google', 'moongate://', 'ethereum');
+                  signInWithProvider('ethereum', 'moongate://', 'tezos');
                 },
-                child: Text('Google')),
+                child: Text('Log In with Provider')),
           ],
         ),
       ),

@@ -12,6 +12,8 @@ class AuthWebView extends StatefulWidget {
 }
 
 class _AuthWebViewState extends State<AuthWebView> {
+  //
+
   late InAppWebViewController _webViewController;
   bool _authenticationProcessed = false;
 
