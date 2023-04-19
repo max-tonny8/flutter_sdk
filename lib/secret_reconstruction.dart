@@ -3,6 +3,7 @@ import 'get_moongate_keyshare.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'secure_storage_util.dart';
+import 'constants.dart';
 
 Future<void> secretReconstruction() async {
   String localKeyShare = await getLocalKeyShare();
@@ -12,7 +13,7 @@ Future<void> secretReconstruction() async {
   /*  String? accessToken = await secureStorage.getAccessToken(); */
 /*   if (accessToken != null) { */
   final response =
-      await http.post(Uri.parse('http://192.168.0.18:3007/keyReconstruction'),
+      await http.post(Uri.parse('$ipAddress:3007/keyReconstruction'),
           headers: {
             'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
             'Content-Type': 'application/json',
