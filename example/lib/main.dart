@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:moongate_flutter_sdk/moongate_auth.dart';
+import 'package:moongate_flutter_sdk/ethereum_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   MoonGateAuth moonGateAuth = MoonGateAuth();
   @override
   String? mnemonic = '';
+  String? privatekey = '';
   Widget build(BuildContext context) {
     // Create a function that sign ins with provider and then get the mnemonic once the user has authenticated
     Future<void> signInWithProvider(
@@ -40,7 +42,13 @@ class _MyHomePageState extends State<MyHomePage> {
       await moonGateAuth.signInWithProvider(
           context, provider, redirectUrl, chain);
       mnemonic = await moonGateAuth.getMnemonic();
+      privatekey = await moonGateAuth.getPrivateKey();
       print(mnemonic);
+    }
+
+    Future<void> connectWallet() async {
+      print('connect wallet');
+      await ethereumProvider(context);
     }
 
     return Scaffold(
@@ -53,9 +61,17 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  signInWithProvider('google', 'moongate://', 'tezos');
+                  signInWithProvider('discord', 'moongate://', 'tezos');
                 },
                 child: Text('Log In with Provider')),
+            SizedBox(height: 16), // Add some spacing between the buttons
+            ElevatedButton(
+              onPressed: () async {
+                // add wallet code here
+                connectWallet();
+              },
+              child: Text('Connect wallet'),
+            ),
           ],
         ),
       ),
