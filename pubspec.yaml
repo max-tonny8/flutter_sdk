@@ -23,6 +23,10 @@ dependencies:
   convert: ^3.1.1
   sss256: ^1.0.0
   hex: ^0.2.0
+  walletconnect_qrcode_modal_dart: ^0.4.0
+  walletconnect_dart: ^0.0.11
+  web3dart: ^2.6.1
+  sha3: ^0.2.0
 
 dev_dependencies:
   flutter_test:
