@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:walletconnect_qrcode_modal_dart/walletconnect_qrcode_modal_dart.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:web3dart/web3dart.dart';
-import 'package:http/http.dart'; //You can also import the browser version
-// utf8 import
-import 'dart:convert';
 
 Future<void> ethereumProvider(BuildContext context) async {
-  var httpClient = Client();
-
 // Create a connector
   final qrCodeModal = WalletConnectQrCodeModal(
     connector: WalletConnect(
@@ -31,11 +26,41 @@ Future<void> ethereumProvider(BuildContext context) async {
   // request sign message
   print(session);
   final provider = EthereumWalletConnectProvider(qrCodeModal.connector);
-  final ethereum = Web3Client('https://goerli.infura.io/', Client());
   final sender = EthereumAddress.fromHex(session!.accounts[0]);
-  // create and sign a message to authenticate the user that says "Hello World"
-  final message = "sign this for cookies";
-  final signature = await provider.personalSign(
-      message: message, address: sender.hex, password: "password");
-  print(signature);
+  // define EIP55 address
+  String address = sender.hexEip55;
+  // Define variables for the message
+  const domain = "localhost";
+  const statement = "Hello World";
+  const version = "1";
+  const uri = "http://localhost:3000";
+  const chainId = "1";
+  const nonce = "32891756";
+  // get the current date time in epoch ISO 8601 format of now up to milliseconds
+  DateTime now = DateTime.now();
+  int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+  String iso8601 = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch)
+      .toIso8601String();
+
+  // Remove microseconds from the ISO 8601 string
+  int indexOfDot = iso8601.indexOf('.');
+  String iso8601WithoutMicroseconds =
+      iso8601.substring(0, indexOfDot + 4) + 'Z';
+
+  print(iso8601WithoutMicroseconds);
+
+  final object = {
+    "domain": domain,
+    "address": address,
+    "statement": statement,
+    "uri": uri,
+    "version": version,
+    "chainId": chainId,
+    "nonce": nonce,
+    "issuedAt": iso8601WithoutMicroseconds
+  };
+  final message =
+      "$domain wants you to sign in with your Ethereum account:\n$address\n\n$statement\n\nURI: $uri\nVersion: $version\nChain ID: $chainId\nNonce: $nonce\nIssued At: $iso8601WithoutMicroseconds";
+  final signature =
+      await provider.personalSign(message: message, address: address);
 }
