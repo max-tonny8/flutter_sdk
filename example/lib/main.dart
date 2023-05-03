@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moongate_flutter_sdk/ethereum.dart';
 import 'dart:async';
 import 'package:moongate_flutter_sdk/moongate_auth.dart';
-import 'package:moongate_flutter_sdk/ethereum_provider.dart';
+import 'package:moongate_flutter_sdk/ethereum.dart';
 
 void main() {
   runApp(MyApp());
