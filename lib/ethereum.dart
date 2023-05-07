@@ -9,12 +9,12 @@ Future<void> ethereumProvider(BuildContext context) async {
       'MoonGate Authentication Service',
       'https://moongate.one/',
       'https://www.joinef.com/wp-content/uploads/2023/03/MoonGate-5-Praneet-Sinha-700x700.png');
-  /* await getNonce(url); */
+  await getNonce("http://192.168.1.222:3001/api/nonce");
   await signInWithEthereum(
-      'https://moongate.one/',
+      'localhost:3000',
       'Sign in with MoonGate to prove ownership over this account',
-      'https://moongate.one/',
+      'localhost:3000',
       "1",
       "1");
-  /* await verifyMessage(url); */
+  await verifyMessage("http://192.168.1.222:3001/verify");
 }
