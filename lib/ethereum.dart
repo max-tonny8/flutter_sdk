@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'secure_storage_util.dart';
 import 'package:flutter/material.dart';
 import 'package:siwe_flutter/library.dart';
+import 'authentication_wrapper.dart';
+import 'constants.dart';
 
 Future<void> ethereumProvider(BuildContext context) async {
   await initializeProvider(
@@ -16,5 +20,10 @@ Future<void> ethereumProvider(BuildContext context) async {
       'localhost:3000',
       "1",
       "1");
-  await verifyMessage("http://192.168.1.222:3001/verify");
+  final data = await verifyMessage("$ipAddress:3001/verify");
+
+  // save the token to secure storage
+  final secureStorage = SecureStorageUtil();
+  await secureStorage.setAccessToken(jsonDecode(data)['token']);
+  await authenticationHandler();
 }

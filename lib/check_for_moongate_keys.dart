@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'secure_storage_util.dart';
 import 'constants.dart';
+import 'config.dart';
 
 Future checkForExistingKeys() async {
   final secureStorage = SecureStorageUtil();
@@ -10,7 +11,7 @@ Future checkForExistingKeys() async {
     final response =
         await http.post(Uri.parse('$ipAddress:3005/checkforkeyshare'),
             headers: {
-              'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
+              'x-api-key': MoonGateConfig.apiKey,
               'Content-Type': 'application/json',
             },
             body: jsonEncode({
@@ -22,10 +23,8 @@ Future checkForExistingKeys() async {
       var data = jsonDecode(response.body);
       data = data['shard'];
       if (data) {
-        print('the shard exists');
         return true;
       } else {
-        print('the shard does not exist');
         return false;
       }
     }

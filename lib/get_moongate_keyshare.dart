@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'secure_storage_util.dart';
 import 'constants.dart';
+import 'config.dart';
 
 Future getMoongateKeyShare() async {
   final secureStorage = SecureStorageUtil();
@@ -9,7 +10,7 @@ Future getMoongateKeyShare() async {
   if (accessToken != null) {
     final response = await http.post(Uri.parse('$ipAddress:3003/getshard'),
         headers: {
-          'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
+          'x-api-key': MoonGateConfig.apiKey,
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -29,6 +30,5 @@ Future getMoongateKeyShare() async {
     }
   } else {
     return null;
-    print('Access token not found');
   }
 }

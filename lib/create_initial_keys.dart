@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'secure_storage_util.dart';
 import 'constants.dart';
+import 'config.dart';
 
 Future<void> createKeys() async {
   final secureStorage = SecureStorageUtil();
@@ -9,7 +10,7 @@ Future<void> createKeys() async {
   if (accessToken != null) {
     final response = await http.post(Uri.parse('$ipAddress:3004/keygen'),
         headers: {
-          'x-api-key': 'itu9sgo42ig0hhkp5xvfk',
+          'x-api-key': MoonGateConfig.apiKey,
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -20,7 +21,6 @@ Future<void> createKeys() async {
       // If the server returns a 200 OK response, parse the data
       var data = response.body;
       // Do something with the data
-      print('Data from backend: $data');
       await secureStorage.setKeyShare(data);
     } else {
       // If the server returns an error response, throw an exception
