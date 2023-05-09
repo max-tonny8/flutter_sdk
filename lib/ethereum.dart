@@ -5,7 +5,7 @@ import 'package:siwe_flutter/library.dart';
 import 'authentication_wrapper.dart';
 import 'constants.dart';
 
-Future<void> ethereumProvider(BuildContext context) async {
+Future<void> signWithEthereum(BuildContext context) async {
   await initializeProvider(
       context,
       'https://bridge.walletconnect.org',

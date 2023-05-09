@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moongate_flutter_sdk/ethereum.dart';
+import 'package:moongate_flutter_sdk/library.dart';
 import 'dart:async';
-import 'package:moongate_flutter_sdk/moongate_auth.dart';
-import 'package:moongate_flutter_sdk/ethereum.dart';
-import 'package:moongate_flutter_sdk/config.dart';
 
 void main() {
   String userApiKey = 'itu9sgo42ig0hhkp5xvfk';
@@ -52,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Future<void> connectWallet() async {
       print('connect wallet');
-      await ethereumProvider(context);
+      await signWithEthereum(context);
       mnemonic = await moonGateAuth.getMnemonic();
       privatekey = await moonGateAuth.getPrivateKey();
       print(mnemonic);
