@@ -3,7 +3,7 @@ import 'package:moongate_flutter_sdk/library.dart';
 import 'dart:async';
 
 void main() {
-  String userApiKey = 'itu9sgo42ig0hhkp5xvfk';
+  String userApiKey = 'your_api_key_here';
   MoonGateConfig.setApiKey(userApiKey);
   runApp(MyApp());
 }
