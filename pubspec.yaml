@@ -1,7 +1,10 @@
 name: moongate_flutter_sdk
-description: A new Flutter plugin project.
+description: MoonGate Web3 Flutter Authentication SDK
 version: 0.0.1
-homepage:
+homepage: https://docs.moongate.one/
+repository: https://github.com/onemoongate/sss-flutter-sdk
+publisher: moongate.one
+
 
 environment:
   sdk: '>=2.19.3 <3.0.0'
