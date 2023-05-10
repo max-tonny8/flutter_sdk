@@ -8,15 +8,14 @@ Future checkForExistingKeys() async {
   final secureStorage = SecureStorageUtil();
   String? accessToken = await secureStorage.getAccessToken();
   if (accessToken != null) {
-    final response =
-        await http.post(Uri.parse('$ipAddress:3005/checkforkeyshare'),
-            headers: {
-              'x-api-key': MoonGateConfig.apiKey,
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode({
-              "access_token": accessToken,
-            }));
+    final response = await http.post(Uri.parse('$ipAddress/checkforkeyshare'),
+        headers: {
+          'x-api-key': MoonGateConfig.apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "access_token": accessToken,
+        }));
 
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the data

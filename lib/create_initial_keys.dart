@@ -8,7 +8,7 @@ Future<void> createKeys() async {
   final secureStorage = SecureStorageUtil();
   String? accessToken = await secureStorage.getAccessToken();
   if (accessToken != null) {
-    final response = await http.post(Uri.parse('$ipAddress:3004/keygen'),
+    final response = await http.post(Uri.parse('$ipAddress/keygen'),
         headers: {
           'x-api-key': MoonGateConfig.apiKey,
           'Content-Type': 'application/json',

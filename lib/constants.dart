@@ -1,1 +1,1 @@
-const String ipAddress = 'http://192.168.1.222';
+const String ipAddress = 'http://auth.moongate.one:3002';

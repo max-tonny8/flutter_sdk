@@ -12,17 +12,16 @@ Future<void> secretReconstruction() async {
   final secureStorage = SecureStorageUtil();
   /*  String? accessToken = await secureStorage.getAccessToken(); */
 /*   if (accessToken != null) { */
-  final response =
-      await http.post(Uri.parse('$ipAddress:3007/keyReconstruction'),
-          headers: {
-            'x-api-key': MoonGateConfig.apiKey,
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode({
-            /*  "access_token": accessToken, */
-            "shareA": localKeyShare,
-            "shareB": moongateKeyShare,
-          }));
+  final response = await http.post(Uri.parse('$ipAddress/keyreconstruction'),
+      headers: {
+        'x-api-key': MoonGateConfig.apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        /*  "access_token": accessToken, */
+        "shareA": localKeyShare,
+        "shareB": moongateKeyShare,
+      }));
 
   if (response.statusCode == 200) {
     // If the server returns a 200 OK response, parse the data

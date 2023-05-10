@@ -8,7 +8,7 @@ Future getMoongateKeyShare() async {
   final secureStorage = SecureStorageUtil();
   String? accessToken = await secureStorage.getAccessToken();
   if (accessToken != null) {
-    final response = await http.post(Uri.parse('$ipAddress:3003/getshard'),
+    final response = await http.post(Uri.parse('$ipAddress/getshard'),
         headers: {
           'x-api-key': MoonGateConfig.apiKey,
           'Content-Type': 'application/json',
